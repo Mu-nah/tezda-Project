@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'product_model.dart';
 
-class ProductDetails extends StatelessWidget {
+class ProductDetails extends StatefulWidget {
   final Product product;
 
   const ProductDetails({Key? key, required this.product}) : super(key: key);
 
+  @override
+  _ProductDetailsState createState() => _ProductDetailsState();
+}
+
+class _ProductDetailsState extends State<ProductDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +24,7 @@ class ProductDetails extends StatelessWidget {
           children: [
             Center(
               child: Image.network(
-                product.image,
+                widget.product.image,
                 height: 200.0,
                 width: 200.0,
                 fit: BoxFit.contain,
@@ -27,7 +32,7 @@ class ProductDetails extends StatelessWidget {
             ),
             SizedBox(height: 16.0),
             Text(
-              product.title,
+              widget.product.title,
               style: TextStyle(
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold,
@@ -35,7 +40,7 @@ class ProductDetails extends StatelessWidget {
             ),
             SizedBox(height: 8.0),
             Text(
-              '\$${product.price.toStringAsFixed(2)}',
+              '\$${widget.product.price.toStringAsFixed(2)}',
               style: TextStyle(
                 fontSize: 20.0,
                 color: Colors.green,
@@ -52,8 +57,48 @@ class ProductDetails extends StatelessWidget {
             ),
             SizedBox(height: 8.0),
             Text(
-              product.description,
+              widget.product.description,
               style: TextStyle(fontSize: 16.0),
+            ),
+            SizedBox(height: 16.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: Icon(
+                    widget.product.isFavorite
+                        ? Icons.favorite
+                        : Icons.favorite_border,
+                    color: Colors.red,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      widget.product.isFavorite = !widget.product.isFavorite;
+                    });
+                  },
+                ),
+                SizedBox(width: 8.0),
+                // You can replace the following container with an actual rating widget.
+                Container(
+                  child: Row(
+                    children: List.generate(5, (index) {
+                      return IconButton(
+                        icon: Icon(
+                          index < widget.product.rating
+                              ? Icons.star
+                              : Icons.star_border,
+                          color: Colors.yellow,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            widget.product.rating = index + 1;
+                          });
+                        },
+                      );
+                    }),
+                  ),
+                ),
+              ],
             ),
             SizedBox(height: 16.0),
             Row(
