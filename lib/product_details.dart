@@ -62,7 +62,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             ),
             SizedBox(height: 16.0),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 IconButton(
                   icon: Icon(
@@ -77,23 +77,15 @@ class _ProductDetailsState extends State<ProductDetails> {
                     });
                   },
                 ),
-                SizedBox(width: 8.0),
-                // You can replace the following container with an actual rating widget.
+                // Replace this container with a proper rating widget
                 Container(
                   child: Row(
                     children: List.generate(5, (index) {
-                      return IconButton(
-                        icon: Icon(
-                          index < widget.product.rating
-                              ? Icons.star
-                              : Icons.star_border,
-                          color: Colors.yellow,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            widget.product.rating = index + 1;
-                          });
-                        },
+                      return Icon(
+                        index < widget.product.rating
+                            ? Icons.star
+                            : Icons.star_border,
+                        color: Colors.yellow,
                       );
                     }),
                   ),
@@ -101,16 +93,11 @@ class _ProductDetailsState extends State<ProductDetails> {
               ],
             ),
             SizedBox(height: 16.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    // Implement any action you want on button press
-                  },
-                  child: Text('Add to Cart'),
-                ),
-              ],
+            ElevatedButton(
+              onPressed: () {
+                //Implement Action
+              },
+              child: Text('Add to Cart'),
             ),
           ],
         ),
